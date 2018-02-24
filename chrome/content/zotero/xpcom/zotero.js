@@ -2242,13 +2242,22 @@ Zotero.Prefs = new function(){
 				case branch.PREF_BOOL:
 					return branch.getBoolPref(pref);
 				case branch.PREF_STRING:
-					return '' + branch.getComplexValue(pref, Components.interfaces.nsISupportsString);
+					// Pre-Fx59
+					if (!branch.getStringPref) {
+						return '' + branch.getComplexValue(pref, Components.interfaces.nsISupportsString);
+					}
+					return branch.getStringPref(pref);
 				case branch.PREF_INT:
 					return branch.getIntPref(pref);
 			}
 		}
-		catch (e){
-			throw ("Invalid preference '" + pref + "'");
+		catch (e) {
+			// If debug system isn't yet initialized, log proper error
+			if (Zotero.Debug.enabled === undefined) {
+				dump(e + "\n\n");
+			}
+			Zotero.logError(e);
+			throw new Error(`Error getting preference '${pref}'`);
 		}
 	}
 	
@@ -2269,10 +2278,14 @@ Zotero.Prefs = new function(){
 				case branch.PREF_BOOL:
 					return branch.setBoolPref(pref, value);
 				case branch.PREF_STRING:
-					let str = Cc["@mozilla.org/supports-string;1"]
-						.createInstance(Ci.nsISupportsString);
-					str.data = value;
-					return branch.setComplexValue(pref, Ci.nsISupportsString, str);
+					// Pre-Fx59
+					if (!branch.setStringPref) {
+						let str = Cc["@mozilla.org/supports-string;1"]
+							.createInstance(Ci.nsISupportsString);
+						str.data = value;
+						return branch.setComplexValue(pref, Ci.nsISupportsString, str);
+					}
+					return branch.setStringPref(pref, value);
 				case branch.PREF_INT:
 					return branch.setIntPref(pref, value);
 				
@@ -2284,7 +2297,14 @@ Zotero.Prefs = new function(){
 					}
 					if (typeof value == 'string') {
 						Zotero.debug("Creating string pref '" + pref + "'");
-						return branch.setCharPref(pref, value);
+						// Pre-Fx59
+						if (!branch.setStringPref) {
+							let str = Cc["@mozilla.org/supports-string;1"]
+								.createInstance(Ci.nsISupportsString);
+							str.data = value;
+							return branch.setComplexValue(pref, Ci.nsISupportsString, str);
+						}
+						return branch.setStringPref(pref, value);
 					}
 					if (parseInt(value) == value) {
 						Zotero.debug("Creating integer pref '" + pref + "'");
@@ -2294,8 +2314,12 @@ Zotero.Prefs = new function(){
 			}
 		}
 		catch (e) {
+			// If debug system isn't yet initialized, log proper error
+			if (Zotero.Debug.enabled === undefined) {
+				dump(e + "\n\n");
+			}
 			Zotero.logError(e);
-			throw new Error("Invalid preference '" + pref + "'");
+			throw new Error(`Error setting preference '${pref}'`);
 		}
 	}
 	
@@ -2414,7 +2438,6 @@ Zotero.Prefs = new function(){
 	// Methods to register a preferences observer
 	//
 	function register(){
-		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch2);
 		this.prefBranch.addObserver("", this, false);
 		
 		// Register pre-set handlers
