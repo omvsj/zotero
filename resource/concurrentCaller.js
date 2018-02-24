@@ -23,8 +23,8 @@
     ***** END LICENSE BLOCK *****
 */
 
-EXPORTED_SYMBOLS = ["ConcurrentCaller"];
-Components.utils.import('resource://zotero/require.js');
+var EXPORTED_SYMBOLS = ["ConcurrentCaller"];
+Components.utils.import('resource://zotero/require.jsm');
 
 var Promise = require('resource://zotero/bluebird.js');
 
@@ -58,7 +58,7 @@ var Promise = require('resource://zotero/bluebird.js');
  *     beginning of another, in milliseconds
  * @param {Function} [options.logger]
  */
-ConcurrentCaller = function (options = {}) {
+var ConcurrentCaller = function (options = {}) {
 	if (typeof options == 'number') {
 		this._log("ConcurrentCaller now takes an object rather than a number");
 		options = {

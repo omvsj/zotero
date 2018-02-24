@@ -1,3 +1,5 @@
+var EXPORTED_SYMBOLS = ["ZOTERO_CONFIG"];
+
 var ZOTERO_CONFIG = {
 	GUID: 'zotero@chnm.gmu.edu',
 	ID: 'zotero', // used for db filename, etc.
@@ -25,5 +27,3 @@ var ZOTERO_CONFIG = {
 	FEEDBACK_URL: "https://forums.zotero.org/",
 	CONNECTORS_URL: "https://www.zotero.org/download/connectors"
 };
-
-EXPORTED_SYMBOLS = ["ZOTERO_CONFIG"];

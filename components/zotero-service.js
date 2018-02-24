@@ -154,9 +154,9 @@ var isFirstLoadThisSession = true;
 var zContext = null;
 var initCallbacks = [];
 var zInitOptions = {};
-Components.utils.import('resource://zotero/require.js');
+Components.utils.import('resource://zotero/require.jsm');
 
-ZoteroContext = function() {}
+var ZoteroContext = function() {}
 ZoteroContext.prototype = {
 	require,
 	
