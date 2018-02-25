@@ -158,8 +158,7 @@ Zotero.HTTP = new function() {
 		var deferred = Zotero.Promise.defer();
 		
 		if (!this.mock) {
-			var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-				.createInstance();
+			var xmlhttp = new XMLHttpRequest();
 		}
 		else {
 			var xmlhttp = new this.mock;
@@ -367,8 +366,7 @@ Zotero.HTTP = new function() {
 			return false;
 		}
 		
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-						.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
@@ -441,8 +439,7 @@ Zotero.HTTP = new function() {
 			return false;
 		}
 		
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-					.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
 		xmlhttp.open('POST', url, true);
@@ -519,8 +516,7 @@ Zotero.HTTP = new function() {
 		
 		// Workaround for "Accept third-party cookies" being off in Firefox 3.0.1
 		// https://www.zotero.org/trac/ticket/1070
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-						.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
 		xmlhttp.open('HEAD', url, true);
@@ -567,8 +563,7 @@ Zotero.HTTP = new function() {
 			return false;
 		}
 		
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-					.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
 		xmlhttp.open('OPTIONS', uri.spec, true);
@@ -737,8 +732,7 @@ Zotero.HTTP = new function() {
 			return false;
 		}
 		
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-					.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
 		xmlhttp.open('MKCOL', uri.spec, true);
@@ -769,8 +763,7 @@ Zotero.HTTP = new function() {
 			return false;
 		}
 		
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-					.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		// Prevent certificate/authentication dialogs from popping up
 		xmlhttp.mozBackgroundRequest = true;
 		xmlhttp.open("DELETE", uri.spec, true);

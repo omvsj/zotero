@@ -24,6 +24,7 @@
 */
 
 // Commonly used imports accessible anywhere
+Components.utils.importGlobalProperties(["XMLHttpRequest"]);
 Components.utils.import("resource://zotero/config.js");
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/Services.jsm");
@@ -267,8 +268,7 @@ Services.scriptloader.loadSubScript("resource://zotero/polyfill.js");
 		
 		// Set the locale direction to Zotero.dir
 		// DEBUG: is there a better way to get the entity from JS?
-		var xmlhttp = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-						.createInstance();
+		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open('GET', 'chrome://global/locale/global.dtd', false);
 		xmlhttp.overrideMimeType('text/plain');
 		xmlhttp.send(null);
