@@ -1157,7 +1157,7 @@
 						
 						if (this.eventHandlers['itemtypechange'] && this.eventHandlers['itemtypechange'].length) {
 							var self = this;
-							this.eventHandlers['itemtypechange'].forEach(function (f) f.bind(self)());
+							this.eventHandlers['itemtypechange'].forEach(f => f.bind(self)());
 						}
 						
 						return true;
