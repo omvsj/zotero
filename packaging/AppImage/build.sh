@@ -34,7 +34,7 @@ rm zotero-*.png zotero.ico
 echo "Packaging.."
 
 cd ..
-./appimagetool-x86_64.AppImage ~/Programming/zotero/packaging/AppImage/Zotero_linux-x86_64
+./appimagetool-x86_64.AppImage Zotero_linux-x86_64
 
 rm -rf Zotero_linux-x86_64
 
